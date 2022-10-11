@@ -8,6 +8,9 @@ public class PlayerInteraction : MonoBehaviour
 
     public float rayDistance = 2f;
     public InteractiveObject interactiveObj;
+    public CollectibleObject collectibleObj;
+
+    private bool tookMap = false;
     [SerializeField] private Camera camera; 
     private string obj;
 
@@ -20,6 +23,14 @@ public class PlayerInteraction : MonoBehaviour
     void Update()
     {
         Interaction();
+
+      if(tookMap && Input.GetKeyDown(KeyCode.Tab) && !UIManager.instance.mapIsOpen)
+        {
+            UIManager.instance.ShowMap();
+        }else if (tookMap && Input.GetKeyDown(KeyCode.Tab) && UIManager.instance.mapIsOpen)
+        {
+            UIManager.instance.CloseMap();
+        }
     }
 
     public void Interaction()
@@ -44,16 +55,38 @@ public class PlayerInteraction : MonoBehaviour
                         interactiveObj.ShowLetter();
                         interactiveObj.isInLetter = true;
                     }
+                   
                 } 
-            }
-            else
+            }else
             {
                 UIManager.instance.SetActiveTextInteract(false);
             }
+            if (obj.Equals("Collectible Object"))
+            {
+                UIManager.instance.SetActiveTextCollectible(true);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    hit.collider.GetComponent<CollectibleObject>();
+                    collectibleObj = hit.collider.GetComponent<CollectibleObject>();
+                    if (collectibleObj.obj.name.Equals("Map"))
+                    {
+                        tookMap = true;
+                        Destroy(collectibleObj.gameObject);
+                    }
+                }
+            }
+            else
+            {
+                UIManager.instance.SetActiveTextCollectible(false);
+
+            }
+
         }
         else
         {
             UIManager.instance.SetActiveTextInteract(false);
+            UIManager.instance.SetActiveTextCollectible(false);
+
         }
     }
 

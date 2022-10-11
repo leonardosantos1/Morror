@@ -42,4 +42,6 @@ public class InteractiveObject : MonoBehaviour
         cameraFirstPerson.CanMove = true;
     }
 
+
+
 }
