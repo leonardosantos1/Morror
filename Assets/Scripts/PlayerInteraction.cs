@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -27,6 +29,7 @@ public class PlayerInteraction : MonoBehaviour
       if(tookMap && Input.GetKeyDown(KeyCode.Tab) && !UIManager.instance.mapIsOpen)
         {
             UIManager.instance.ShowMap();
+
         }else if (tookMap && Input.GetKeyDown(KeyCode.Tab) && UIManager.instance.mapIsOpen)
         {
             UIManager.instance.CloseMap();
@@ -54,6 +57,12 @@ public class PlayerInteraction : MonoBehaviour
                     {
                         interactiveObj.ShowLetter();
                         interactiveObj.isInLetter = true;
+
+                        if (SceneManager.GetActiveScene().name.Equals("MazeScene"))
+                        {
+                            UIManager.instance.ShowFeedbacksKey();
+                        }
+
                     }
                    
                 } 
@@ -72,6 +81,13 @@ public class PlayerInteraction : MonoBehaviour
                     {
                         tookMap = true;
                         Destroy(collectibleObj.gameObject);
+                        UIManager.instance.FeedbackMap();
+                    }
+                    else if (collectibleObj.obj.name.Equals("Key"))
+                    {
+                        UIManager.instance.KeyAmount++;
+                        Destroy(collectibleObj.gameObject);
+
                     }
                 }
             }

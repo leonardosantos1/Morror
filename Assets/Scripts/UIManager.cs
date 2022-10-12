@@ -9,14 +9,25 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     [SerializeField] private Text textInteract;
     [SerializeField] private Text textCollectible;
+    [SerializeField] private Text textFeedbackMap;
+    
+    [SerializeField] private Text textFeedbackGetKey;
+    [SerializeField] private Text textAmoutKey;
+    [SerializeField] private Image keyIcon;
+
+
+    [SerializeField] private int keyAmount = 0;
 
     public bool mapIsOpen = false;
     [SerializeField] private Image mapImage;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip paperSound;
+    [SerializeField] private Animator _animatorTextFeedbackMap;
 
     public CameraFirstPerson cameraFirstPerson;
 
+    public Animator animatorTextFeedbackMap { get => _animatorTextFeedbackMap; set => _animatorTextFeedbackMap = value; }
+    public int KeyAmount { get => keyAmount; set => keyAmount = value; }
 
     private void Awake()
     {
@@ -39,8 +50,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-       
+        FeedbackGetKey();
     }
 
     public void SetActiveTextInteract(bool state)
@@ -71,4 +81,22 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void FeedbackMap()
+    {
+        textFeedbackMap.gameObject.SetActive(true);
+        _animatorTextFeedbackMap.SetTrigger("Feedback");
+    }
+
+    public void ShowFeedbacksKey()
+    {
+        textFeedbackGetKey.gameObject.SetActive(true);
+        textAmoutKey.gameObject.SetActive(true);
+        keyIcon.gameObject.SetActive(true);
+
+    }
+
+    public void FeedbackGetKey()
+    {
+        textFeedbackGetKey.text = keyAmount.ToString();
+    }
 }
