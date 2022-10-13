@@ -12,6 +12,9 @@ public class InteractiveObject : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip paperSound;
 
+    [SerializeField] private Animator _animator;
+    [SerializeField] private bool isOpen;
+
     public CameraFirstPerson cameraFirstPerson;
 
     void Start()
@@ -43,5 +46,19 @@ public class InteractiveObject : MonoBehaviour
     }
 
 
+    public void SetDoorActivity()
+    {
+        if (isOpen.Equals(true))
+        {
+            _animator.SetTrigger("Close");
+            isOpen = !isOpen;
+        }
+        else if (isOpen.Equals(false))
+        {
+            _animator.SetTrigger("Open");
+            isOpen = !isOpen;
+
+        }
+    }
 
 }

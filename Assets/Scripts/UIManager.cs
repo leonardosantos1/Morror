@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text textAmoutKey;
     [SerializeField] private Image keyIcon;
 
+    [SerializeField] private bool haveReadedLetter = false;
 
     [SerializeField] private int keyAmount = 0;
 
@@ -28,6 +29,7 @@ public class UIManager : MonoBehaviour
 
     public Animator animatorTextFeedbackMap { get => _animatorTextFeedbackMap; set => _animatorTextFeedbackMap = value; }
     public int KeyAmount { get => keyAmount; set => keyAmount = value; }
+    public bool HaveReadedLetter { get => haveReadedLetter; set => haveReadedLetter = value; }
 
     private void Awake()
     {
@@ -98,5 +100,10 @@ public class UIManager : MonoBehaviour
     public void FeedbackGetKey()
     {
         textFeedbackGetKey.text = keyAmount.ToString();
+    }
+
+    public void HaveReadLetterMazeScene()
+    {
+        haveReadedLetter = true;
     }
 }

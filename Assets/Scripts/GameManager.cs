@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using RPGTALK;
 
 public class GameManager : MonoBehaviour
@@ -32,19 +33,27 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Invoke("FirstDialogueText", 5f);
+        if (SceneManager.GetActiveScene().name.Equals("SampleScene"))
+        {
+            Invoke("FirstDialogueText", 5f);
+        }
+      
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(numberDialogue == 1)
+        if (numberDialogue == 1)
         {
-            numberDialogue = 2;
-            Invoke("DialogueEnableWhiteDoor", 5f);
+            numberDialogue++;
+            Invoke("DialogueEnableWhiteDoor", 4.5f);
+        }
+        if (SceneManager.GetActiveScene().name.Equals("MazeScene"))
+        {
+
         }
     }
-
     void FirstDialogueText()
     {
         rpgTalk.NewTalk("1", "2");
@@ -53,6 +62,11 @@ public class GameManager : MonoBehaviour
      void DialogueEnableWhiteDoor()
     {
         rpgTalk.NewTalk("3", "4");
+    }
+
+    public void DialogueNeedReadLetter()
+    {
+        rpgTalk.NewTalk("7", "7");
     }
 
 
