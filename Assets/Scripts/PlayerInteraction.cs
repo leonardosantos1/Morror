@@ -57,15 +57,16 @@ public class PlayerInteraction : MonoBehaviour
                     {
                         interactiveObj.ShowLetter();
                         interactiveObj.isInLetter = true;
-
-                        if (SceneManager.GetActiveScene().name.Equals("MazeScene"))
-                        {
-                            UIManager.instance.ShowFeedbacksKey();
-                        }
-
+           
+                    }else if(interactiveObj.obj.name.Equals("Door") && !interactiveObj.isInLetter && UIManager.instance.HaveReadedLetter){
+                        interactiveObj.SetDoorActivity();
                     }
-                   
-                } 
+                    else if (interactiveObj.obj.name.Equals("Door") && !interactiveObj.isInLetter && !UIManager.instance.HaveReadedLetter)
+                    {
+                        GameManager.instance.DialogueNeedReadLetter();
+                    }
+                }
+                 
             }else
             {
                 UIManager.instance.SetActiveTextInteract(false);
