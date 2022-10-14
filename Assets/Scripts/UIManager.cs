@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image mapImage;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip paperSound;
+    [SerializeField] private AudioClip pickUpKeyAudioClip;
     [SerializeField] private Animator _animatorTextFeedbackMap;
 
     public CameraFirstPerson cameraFirstPerson;
@@ -52,7 +54,10 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FeedbackGetKey();
+        if (SceneManager.GetActiveScene().name.Equals("MazeScene")){
+            FeedbackGetKey();
+
+        }
     }
 
     public void SetActiveTextInteract(bool state)
@@ -100,6 +105,12 @@ public class UIManager : MonoBehaviour
     public void FeedbackGetKey()
     {
         textFeedbackGetKey.text = keyAmount.ToString();
+    }
+
+    public void PlaySoundPickUpKey()
+    {
+        audioSource.PlayOneShot(pickUpKeyAudioClip);
+
     }
 
     public void HaveReadLetterMazeScene()

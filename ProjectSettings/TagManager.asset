@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactive Object
   - Collectible Object
+  - Door Final
   layers:
   - Default
   - TransparentFX

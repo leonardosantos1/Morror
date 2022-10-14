@@ -57,7 +57,17 @@ public class PlayerInteraction : MonoBehaviour
                     {
                         interactiveObj.ShowLetter();
                         interactiveObj.isInLetter = true;
-           
+
+                    }else if (interactiveObj.obj.name.Equals("FinalDoor") && !interactiveObj.isInLetter) { 
+                        if (UIManager.instance.KeyAmount == 2)
+                        {
+                            interactiveObj.SetDoorActivity();
+                        }
+                        else
+                        {
+                            GameManager.instance.DialogueNeedToFindKey();
+                        }
+
                     }else if(interactiveObj.obj.name.Equals("Door") && !interactiveObj.isInLetter && UIManager.instance.HaveReadedLetter){
                         interactiveObj.SetDoorActivity();
                     }
@@ -87,6 +97,7 @@ public class PlayerInteraction : MonoBehaviour
                     else if (collectibleObj.obj.name.Equals("Key"))
                     {
                         UIManager.instance.KeyAmount++;
+                        UIManager.instance.PlaySoundPickUpKey();
                         Destroy(collectibleObj.gameObject);
 
                     }
@@ -94,15 +105,25 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
-                UIManager.instance.SetActiveTextCollectible(false);
+                if (SceneManager.GetActiveScene().name.Equals("MazeScene"))
+                {
+                    UIManager.instance.SetActiveTextCollectible(false);
+                }
+              
 
             }
 
         }
         else
         {
+
             UIManager.instance.SetActiveTextInteract(false);
-            UIManager.instance.SetActiveTextCollectible(false);
+
+
+            if (SceneManager.GetActiveScene().name.Equals("MazeScene"))
+            {
+                UIManager.instance.SetActiveTextCollectible(false);
+            }
 
         }
     }

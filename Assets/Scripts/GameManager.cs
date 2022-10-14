@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip tvNoSinalAudioClip;
     [SerializeField] private Material newMaterialScreen;
 
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip heavyBreathingAudioClip;
+    [SerializeField] private AudioClip doorLockedAudioClip;
+
     // Start is called before the first frame update
     [SerializeField] private RPGTalk rpgTalk;
     public int numberDialogue = 0;
@@ -61,6 +65,7 @@ public class GameManager : MonoBehaviour
 
      void DialogueEnableWhiteDoor()
     {
+        _audioSource.PlayOneShot(heavyBreathingAudioClip);
         rpgTalk.NewTalk("3", "4");
     }
 
@@ -69,6 +74,11 @@ public class GameManager : MonoBehaviour
         rpgTalk.NewTalk("7", "7");
     }
 
+    public void DialogueNeedToFindKey()
+    {
+        rpgTalk.NewTalk("10", "10");
+        _audioSource.PlayOneShot(doorLockedAudioClip);
+    }
 
     public void SetNewComputerScreen()
     {
