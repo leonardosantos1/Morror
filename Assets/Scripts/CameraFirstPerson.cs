@@ -6,11 +6,16 @@ public class CameraFirstPerson : MonoBehaviour
 {
     // Start is called before the first frame update
 
+
+    public static CameraFirstPerson instance;
+
     [SerializeField] [Range(0.01f, 6)] private float _sensibility;
     [SerializeField] private float mouseX = 0.0f, mouseY = 0.0f;
 
     [SerializeField] private Transform headPlayer;
     [SerializeField] private Transform player;
+
+    public Camera cameraMain;
 
     private float rotationX, rotationY;
 
@@ -18,8 +23,24 @@ public class CameraFirstPerson : MonoBehaviour
 
     public bool CanMove { get => canMove; set => canMove = value; }
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(instance);
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+
     private void Start()
     {
+        cameraMain = FindObjectOfType<Camera>();
         CanMove = true;
     }
 

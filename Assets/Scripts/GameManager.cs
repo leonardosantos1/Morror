@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip heavyBreathingAudioClip;
     [SerializeField] private AudioClip doorLockedAudioClip;
 
+    private bool loadDoneMazeScene = false;
+
     // Start is called before the first frame update
     [SerializeField] private RPGTalk rpgTalk;
     public int numberDialogue = 0;
@@ -37,12 +39,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name.Equals("SampleScene"))
-        {
-            Invoke("FirstDialogueText", 5f);
-        }
-      
-       
+        rpgTalk = FindObjectOfType<RPGTalk>();
+
+        Invoke("FirstDialogueText", 4.5f);
+
     }
 
     // Update is called once per frame
@@ -53,30 +53,33 @@ public class GameManager : MonoBehaviour
             numberDialogue++;
             Invoke("DialogueEnableWhiteDoor", 4.5f);
         }
-        if (SceneManager.GetActiveScene().name.Equals("MazeScene"))
+        if (SceneManager.GetActiveScene().name.Equals("MazeScene") && !loadDoneMazeScene)
         {
+            loadDoneMazeScene = true;
+            gameObject.GetComponent<EnableLightDoor>().enabled = false;
+            rpgTalk = FindObjectOfType<RPGTalk>();
 
         }
     }
     void FirstDialogueText()
     {
-        rpgTalk.NewTalk("1", "2");
+        RPGTalk.instance.NewTalk("1", "2");
     }
 
      void DialogueEnableWhiteDoor()
     {
         _audioSource.PlayOneShot(heavyBreathingAudioClip);
-        rpgTalk.NewTalk("3", "4");
+        RPGTalk.instance.NewTalk("3", "4");
     }
 
     public void DialogueNeedReadLetter()
     {
-        rpgTalk.NewTalk("7", "7");
+        RPGTalk.instance.NewTalk("7", "7");
     }
 
     public void DialogueNeedToFindKey()
     {
-        rpgTalk.NewTalk("10", "10");
+        RPGTalk.instance.NewTalk("10", "10");
         _audioSource.PlayOneShot(doorLockedAudioClip);
     }
 

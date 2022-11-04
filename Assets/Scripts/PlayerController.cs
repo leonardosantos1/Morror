@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _speed;
+
+    private bool loadDoneMazeScene = false;
 
     Vector3 velocity;
     Vector3 direction = Vector3.zero;
@@ -42,13 +46,18 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Rb = GetComponent<Rigidbody>();
-        
+      
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (SceneManager.GetActiveScene().name.Equals("MazeScene") && !loadDoneMazeScene)
+        {
+            loadDoneMazeScene = true;
+            RespawnPlayerMazeScene();
+
+        }
     }
     private void FixedUpdate()
     {
@@ -94,5 +103,12 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+    void RespawnPlayerMazeScene()
+    {
+        canMove = true;
+        transform.position = new Vector3(-20.7560005f, 1.40100002f, -40f);
+    }
+
 
 }

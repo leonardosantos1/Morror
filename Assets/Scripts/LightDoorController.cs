@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LightDoorController : MonoBehaviour
 {
@@ -31,10 +32,11 @@ public class LightDoorController : MonoBehaviour
             PlayerController.instance.CanMove = false;
             animatorFade.SetTrigger("FadeIn");
             yield return new WaitForSeconds(3f);
-            animatorFade.SetTrigger("FadeOut");
-            yield return new WaitForSeconds(2f);
             fadeImage.SetActive(false);
-            PlayerController.instance.CanMove = true;
+            SceneManager.LoadScene("MazeScene");
+            //animatorFade.SetTrigger("FadeOut");
+            //yield return new WaitForSeconds(2f);
+            //PlayerController.instance.CanMove = true;
         }
     }
 

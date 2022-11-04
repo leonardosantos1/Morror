@@ -8,26 +8,18 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
 
     public static UIManager instance;
-    [SerializeField] private Text textInteract;
-    [SerializeField] private Text textCollectible;
-    [SerializeField] private Text textFeedbackMap;
-    
-    [SerializeField] private Text textFeedbackGetKey;
-    [SerializeField] private Text textAmoutKey;
-    [SerializeField] private Image keyIcon;
-
+  
     [SerializeField] private bool haveReadedLetter = false;
 
     [SerializeField] private int keyAmount = 0;
 
     public bool mapIsOpen = false;
-    [SerializeField] private Image mapImage;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip paperSound;
     [SerializeField] private AudioClip pickUpKeyAudioClip;
     [SerializeField] private Animator _animatorTextFeedbackMap;
 
-    public CameraFirstPerson cameraFirstPerson;
+    //public CameraFirstPerson cameraFirstPerson;
 
     public Animator animatorTextFeedbackMap { get => _animatorTextFeedbackMap; set => _animatorTextFeedbackMap = value; }
     public int KeyAmount { get => keyAmount; set => keyAmount = value; }
@@ -53,7 +45,7 @@ public class UIManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         if (SceneManager.GetActiveScene().name.Equals("MazeScene")){
             FeedbackGetKey();
 
@@ -62,49 +54,49 @@ public class UIManager : MonoBehaviour
 
     public void SetActiveTextInteract(bool state)
     {
-        textInteract.gameObject.SetActive(state);
+        CanvasManager.instance.textInteract.gameObject.SetActive(state);
     }
     public void SetActiveTextCollectible(bool state)
     {
-        textCollectible.gameObject.SetActive(state);
+        CanvasManager.instance.textCollect.gameObject.SetActive(state);
     }
 
     public void ShowMap()
     {
         mapIsOpen = true;
-        mapImage.gameObject.SetActive(true);
+        CanvasManager.instance.mapImage.gameObject.SetActive(true);
         audioSource.clip = paperSound;
         audioSource.Play();
         PlayerController.instance.CanMove = false;
-        cameraFirstPerson.CanMove = false;
+        CameraFirstPerson.instance.CanMove = false;
     }
 
     public void CloseMap()
     {
-        mapImage.gameObject.SetActive(false);
+        CanvasManager.instance.mapImage.gameObject.SetActive(false);
         mapIsOpen = false;
         PlayerController.instance.CanMove = true;
-        cameraFirstPerson.CanMove = true;
+        CameraFirstPerson.instance.CanMove = true;
 
     }
 
     public void FeedbackMap()
     {
-        textFeedbackMap.gameObject.SetActive(true);
-        _animatorTextFeedbackMap.SetTrigger("Feedback");
+        CanvasManager.instance.textSeeTheMap.gameObject.SetActive(true);
+        CanvasManager.instance.animatorFeedBackTookMap.SetTrigger("Feedback");
     }
 
     public void ShowFeedbacksKey()
     {
-        textFeedbackGetKey.gameObject.SetActive(true);
-        textAmoutKey.gameObject.SetActive(true);
-        keyIcon.gameObject.SetActive(true);
+        CanvasManager.instance.textAmountGetKey.gameObject.SetActive(true);
+        CanvasManager.instance.textAmountKey.gameObject.SetActive(true);
+        CanvasManager.instance.keyIcon.gameObject.SetActive(true);
 
     }
 
     public void FeedbackGetKey()
     {
-        textFeedbackGetKey.text = keyAmount.ToString();
+        CanvasManager.instance.textAmountGetKey.text = keyAmount.ToString();
     }
 
     public void PlaySoundPickUpKey()

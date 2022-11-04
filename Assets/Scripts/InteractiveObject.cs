@@ -7,6 +7,7 @@ public class InteractiveObject : MonoBehaviour
 {
 
     public ScriptableObject obj;
+
     public bool isInLetter = false;
     [SerializeField] private Image letterImage;
     [SerializeField] private AudioSource audioSource;
@@ -17,32 +18,38 @@ public class InteractiveObject : MonoBehaviour
 
     public CameraFirstPerson cameraFirstPerson;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ShowLetter()
     {
-        letterImage.gameObject.SetActive(true);
+        if (obj.name.Equals("Letter"))
+        {
+            CanvasManager.instance.letterImage.gameObject.SetActive(true);
+
+        }
+        else{
+            CanvasManager.instance.letterScene2.gameObject.SetActive(true);
+        }
+        //isInLetter = true;
+
         audioSource.clip = paperSound;
         audioSource.Play();
         PlayerController.instance.CanMove = false;
-        cameraFirstPerson.CanMove = false;
+        CameraFirstPerson.instance.CanMove = false;
     }
 
     public void CloseLetter()
     {
-        letterImage.gameObject.SetActive(false);
-        isInLetter = false;
+        if (obj.name.Equals("Letter"))
+        {
+            CanvasManager.instance.letterImage.gameObject.SetActive(false);
+
+        }
+        else
+        {
+            CanvasManager.instance.letterScene2.gameObject.SetActive(false);
+        }
+        //isInLetter = false;
         PlayerController.instance.CanMove = true;
-        cameraFirstPerson.CanMove = true;
+        CameraFirstPerson.instance.CanMove = true;
     }
 
 

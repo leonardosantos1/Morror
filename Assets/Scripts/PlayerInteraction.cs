@@ -13,18 +13,18 @@ public class PlayerInteraction : MonoBehaviour
     public CollectibleObject collectibleObj;
 
     private bool tookMap = false;
-    [SerializeField] private Camera camera; 
+   // [SerializeField] private Camera camera; 
     private string obj;
 
     void Start()
     {
-        camera = Camera.main;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Interaction();
+       Interaction();
 
       if(tookMap && Input.GetKeyDown(KeyCode.Tab) && !UIManager.instance.mapIsOpen)
         {
@@ -39,9 +39,9 @@ public class PlayerInteraction : MonoBehaviour
     public void Interaction()
     {
         RaycastHit hit;
-        Vector3 rayOrigin = camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f));
+        Vector3 rayOrigin = CameraFirstPerson.instance.cameraMain.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.5f));
 
-        if(Physics.Raycast(rayOrigin, camera.transform.forward, out hit, rayDistance))
+        if(Physics.Raycast(rayOrigin, CameraFirstPerson.instance.cameraMain.transform.forward, out hit, rayDistance))
         {
             obj = hit.collider.GetComponent<Collider>().tag;
 
@@ -53,12 +53,11 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     hit.collider.GetComponent<InteractiveObject>();
                     interactiveObj = hit.collider.GetComponent<InteractiveObject>();
-                    if (interactiveObj.obj.name.Equals("Letter") && !interactiveObj.isInLetter)
+                    if (interactiveObj.obj.name.Equals("Letter") || interactiveObj.obj.name.Equals("Letter2"))
                     {
                         interactiveObj.ShowLetter();
-                        interactiveObj.isInLetter = true;
 
-                    }else if (interactiveObj.obj.name.Equals("FinalDoor") && !interactiveObj.isInLetter) { 
+                    }else if (interactiveObj.obj.name.Equals("FinalDoor")) { 
                         if (UIManager.instance.KeyAmount == 2)
                         {
                             interactiveObj.SetDoorActivity();
@@ -68,10 +67,10 @@ public class PlayerInteraction : MonoBehaviour
                             GameManager.instance.DialogueNeedToFindKey();
                         }
 
-                    }else if(interactiveObj.obj.name.Equals("Door") && !interactiveObj.isInLetter && UIManager.instance.HaveReadedLetter){
+                    }else if(interactiveObj.obj.name.Equals("Door") && UIManager.instance.HaveReadedLetter){
                         interactiveObj.SetDoorActivity();
                     }
-                    else if (interactiveObj.obj.name.Equals("Door") && !interactiveObj.isInLetter && !UIManager.instance.HaveReadedLetter)
+                    else if (interactiveObj.obj.name.Equals("Door") && !UIManager.instance.HaveReadedLetter)
                     {
                         GameManager.instance.DialogueNeedReadLetter();
                     }
@@ -109,16 +108,11 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     UIManager.instance.SetActiveTextCollectible(false);
                 }
-              
-
             }
-
         }
         else
         {
-
             UIManager.instance.SetActiveTextInteract(false);
-
 
             if (SceneManager.GetActiveScene().name.Equals("MazeScene"))
             {

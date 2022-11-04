@@ -16,6 +16,23 @@ using RPGTALK.Snippets;
 [AddComponentMenu("Seize Studios/RPGTalk/RPGTalk")]
 public class RPGTalk : MonoBehaviour {
 
+
+    public static RPGTalk instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(instance);
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     /// <summary>
     /// Should the talk be initiated when the script starts?
     /// </summary>
