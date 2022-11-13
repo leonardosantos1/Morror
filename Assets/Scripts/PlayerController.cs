@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController instance;
     [SerializeField] private Rigidbody _rb;
-    [SerializeField] private float _speed;
 
     private bool loadDoneMazeScene = false;
 
@@ -18,7 +17,7 @@ public class PlayerController : MonoBehaviour
     Vector3 currentVelocity;
 
     public float acceleration = 50;
-    public float maxSpeed = 10;
+    public float maxSpeed;
 
     [SerializeField] private bool canMove;
 
@@ -56,7 +55,24 @@ public class PlayerController : MonoBehaviour
         {
             loadDoneMazeScene = true;
             RespawnPlayerMazeScene();
+        }
 
+        if(SceneManager.GetActiveScene().name.Equals("MazeScene"))
+        {
+            
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                maxSpeed = 9;
+            }
+            else
+            {
+                maxSpeed = 3;
+            }
+           
+        }
+        else
+        {
+            maxSpeed = 3;
         }
     }
     private void FixedUpdate()
