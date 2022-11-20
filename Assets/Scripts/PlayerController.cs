@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : IPersistentSingleton<PlayerController>
 {
 
     public static PlayerController instance;
     [SerializeField] private Rigidbody _rb;
+
+    [SerializeField] private int life;
 
     private bool loadDoneMazeScene = false;
 
@@ -26,24 +28,28 @@ public class PlayerController : MonoBehaviour
     public Rigidbody Rb { get => _rb; set => _rb = value; }
     public bool IsWalk { get => isWalk; set => isWalk = value; }
     public bool CanMove { get => canMove; set => canMove = value; }
+    public int Life { get => life; set => life = value; }
 
-    private void Awake()
-    {
-        if(instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }else if(instance != this)
-        {
-            Destroy(instance);
-            DontDestroyOnLoad(gameObject);
-        }
-        canMove = true;
-    }
+    //private void Awake()
+    //{
+    //    if (instance != null && instance != this)
+    //    {
+    //        Destroy(this);
+    //    } else
+    //    {
+    //        instance = this;
+    //        DontDestroyOnLoad(gameObject);
+    //    }
+
+
+    //}
 
     // Start is called before the first frame update
     void Start()
     {
+        canMove = true;
+
+        Life = 2;
         Rb = GetComponent<Rigidbody>();
       
     }
@@ -62,7 +68,7 @@ public class PlayerController : MonoBehaviour
             
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                maxSpeed = 9;
+                maxSpeed = 10;
             }
             else
             {
@@ -72,7 +78,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            maxSpeed = 3;
+            maxSpeed = 8;
         }
     }
     private void FixedUpdate()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CanvasManager : MonoBehaviour
+public class CanvasManager : IPersistentSingleton<CanvasManager>
 {
     // Start is called before the first frame update
 
@@ -22,19 +22,28 @@ public class CanvasManager : MonoBehaviour
 
     public Animator animatorFeedBackTookMap;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-        {
-            Destroy(instance);
-            DontDestroyOnLoad(gameObject);
-        }
-    }
+    public Image jumpscareImage;
+
+    public Animator animatorBlood;
+    public Image blooScreenImage;
+
+    public Text wastedText;
+    public Button restartGame;
+    public Button closeGame;
+
+    //private void Awake()
+    //{
+    //    if (instance != null && instance != this)
+    //    {
+    //        Destroy(this);
+    //    }
+    //    else
+    //    {
+    //        instance = this;
+    //        DontDestroyOnLoad(gameObject);
+    //    }
+
+    //}
 
     void Start()
     {

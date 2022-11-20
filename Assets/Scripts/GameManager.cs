@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using RPGTALK;
 
-public class GameManager : MonoBehaviour
+public class GameManager : IPersistentSingleton<GameManager>
 {
 
     public static GameManager instance;
@@ -22,20 +22,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private RPGTalk rpgTalk;
     public int numberDialogue = 0;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-        {
-            Destroy(instance);
-            DontDestroyOnLoad(gameObject);
-        }
-    }
 
     void Start()
     {
@@ -63,23 +49,23 @@ public class GameManager : MonoBehaviour
     }
     void FirstDialogueText()
     {
-        RPGTalk.instance.NewTalk("1", "2");
+        rpgTalk.NewTalk("1", "2");
     }
 
      void DialogueEnableWhiteDoor()
     {
         _audioSource.PlayOneShot(heavyBreathingAudioClip);
-        RPGTalk.instance.NewTalk("3", "4");
+        rpgTalk.NewTalk("3", "4");
     }
 
     public void DialogueNeedReadLetter()
     {
-        RPGTalk.instance.NewTalk("7", "7");
+        rpgTalk.NewTalk("7", "7");
     }
 
     public void DialogueNeedToFindKey()
     {
-        RPGTalk.instance.NewTalk("10", "10");
+        rpgTalk.NewTalk("10", "10");
         _audioSource.PlayOneShot(doorLockedAudioClip);
     }
 

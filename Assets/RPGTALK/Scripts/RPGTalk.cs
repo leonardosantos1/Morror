@@ -16,23 +16,6 @@ using RPGTALK.Snippets;
 [AddComponentMenu("Seize Studios/RPGTalk/RPGTalk")]
 public class RPGTalk : MonoBehaviour {
 
-
-    public static RPGTalk instance;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-        {
-            Destroy(instance);
-            DontDestroyOnLoad(gameObject);
-        }
-    }
-
     /// <summary>
     /// Should the talk be initiated when the script starts?
     /// </summary>
@@ -353,9 +336,14 @@ public class RPGTalk : MonoBehaviour {
     string originalLineToStart;
     string originalLineToBreak;
 
-
+    GameObject panelCanvas;
 
     void Start(){
+
+        //panelCanvas = CanvasManager.instance.transform.GetChild(2).GetComponentInChildren<GameObject>();
+        panelCanvas = FindObjectOfType<CanvasManager>().GetComponent<Canvas>().transform.GetChild(2).GetComponentInChildren<Image>().gameObject;
+        textUIObj = panelCanvas.transform.GetChild(0).GetComponentInChildren<Text>().gameObject;
+        showWithDialog[0] = panelCanvas;
         //Get the TMP_Translate Object
         textUI = new TMP_Translator(textUIObj);
         if (dialogerObj != null)

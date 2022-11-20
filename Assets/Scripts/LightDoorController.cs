@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 using UnityEngine.SceneManagement;
 
 public class LightDoorController : MonoBehaviour
@@ -14,7 +16,8 @@ public class LightDoorController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        fadeImage = FindObjectOfType<CanvasManager>().GetComponent<Canvas>().transform.GetChild(1).GetComponentInChildren<Image>().gameObject;
+        animatorFade = FindObjectOfType<CanvasManager>().GetComponent<Canvas>().transform.GetChild(1).GetComponentInChildren<Image>().GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,10 +36,8 @@ public class LightDoorController : MonoBehaviour
             animatorFade.SetTrigger("FadeIn");
             yield return new WaitForSeconds(3f);
             fadeImage.SetActive(false);
-            SceneManager.LoadScene("MazeScene");
-            //animatorFade.SetTrigger("FadeOut");
-            //yield return new WaitForSeconds(2f);
-            //PlayerController.instance.CanMove = true;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+           
         }
     }
 

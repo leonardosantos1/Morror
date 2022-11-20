@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFirstPerson : MonoBehaviour
+public class CameraFirstPerson : IPersistentSingleton<CameraFirstPerson>
 {
     // Start is called before the first frame update
 
@@ -23,24 +23,26 @@ public class CameraFirstPerson : MonoBehaviour
 
     public bool CanMove { get => canMove; set => canMove = value; }
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-        {
-            Destroy(instance);
-            DontDestroyOnLoad(gameObject);
-        }
-    }
+    //private void Awake()
+    //{
+    //    if (instance != null && instance != this)
+    //    {
+    //        Destroy(this);
+    //    }
+    //    else
+    //    {
+    //        instance = this;
+    //        DontDestroyOnLoad(gameObject);
+    //    }
+
+    //}
 
 
     private void Start()
     {
-        cameraMain = FindObjectOfType<Camera>();
+        cameraMain = GetComponent<Camera>();
+        player = FindObjectOfType<PlayerController>().transform;
+        headPlayer = player.transform.GetChild(0).GetComponentInChildren<Transform>();
         CanMove = true;
     }
 

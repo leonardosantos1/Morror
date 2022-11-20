@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-public class UIManager : MonoBehaviour
+public class UIManager : IPersistentSingleton<UIManager>
 {
     // Start is called before the first frame update
 
@@ -19,28 +19,30 @@ public class UIManager : MonoBehaviour
     [SerializeField] private AudioClip pickUpKeyAudioClip;
     [SerializeField] private Animator _animatorTextFeedbackMap;
 
+   
+
     //public CameraFirstPerson cameraFirstPerson;
 
     public Animator animatorTextFeedbackMap { get => _animatorTextFeedbackMap; set => _animatorTextFeedbackMap = value; }
     public int KeyAmount { get => keyAmount; set => keyAmount = value; }
     public bool HaveReadedLetter { get => haveReadedLetter; set => haveReadedLetter = value; }
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-        {
-            Destroy(instance);
-            DontDestroyOnLoad(gameObject);
-        }
-    }
+    //private void Awake()
+    //{
+    //    if (instance != null && instance != this)
+    //    {
+    //        Destroy(this);
+    //    }
+    //    else
+    //    {
+    //        instance = this;
+    //        DontDestroyOnLoad(gameObject);
+    //    }
+
+       
+    //}
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -109,4 +111,28 @@ public class UIManager : MonoBehaviour
     {
         haveReadedLetter = true;
     }
+
+   public IEnumerator EnableBlooScreen()
+    {
+        CanvasManager.instance.blooScreenImage.gameObject.SetActive(true);
+        CanvasManager.instance.animatorBlood.SetInteger("transition", 1);
+        yield return new WaitForSeconds(3f);
+        CanvasManager.instance.blooScreenImage.gameObject.SetActive(false);
+        CanvasManager.instance.animatorBlood.SetInteger("transition", 0);
+    }
+
+
+    public void DeathScreen()
+    {
+        CanvasManager.instance.wastedText.gameObject.SetActive(true);
+        CanvasManager.instance.restartGame.gameObject.SetActive(true);
+        CanvasManager.instance.closeGame.gameObject.SetActive(true);
+    }
+   
+    public void CloseGame()
+    {
+        Application.Quit();
+    }
+
+
 }
