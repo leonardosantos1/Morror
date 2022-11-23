@@ -24,7 +24,5 @@ public class PlayerAnimation : MonoBehaviour
         {
             _animator.SetInteger("transition", 0);
         }
-
-     
     }
 }

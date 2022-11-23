@@ -73,6 +73,7 @@ MonoBehaviour:
   _audioSource: {fileID: 2539345309352597889}
   heavyBreathingAudioClip: {fileID: 8300000, guid: ec875f8a69266ce46943643228b2892a, type: 3}
   doorLockedAudioClip: {fileID: 8300000, guid: bdb08f965771b8c4b836c77cd1e001c8, type: 3}
+  haveReadedLetter: 0
   rpgTalk: {fileID: 0}
   numberDialogue: 0
 --- !u!82 &2539345309352597889

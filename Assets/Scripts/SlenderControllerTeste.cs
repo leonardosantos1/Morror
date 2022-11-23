@@ -66,7 +66,6 @@ public class SlenderControllerTeste : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         playerDistance = Vector3.Distance(playerTransform.position, transform.position);
 
         StartCoroutine(EnemyFOV());
@@ -76,19 +75,9 @@ public class SlenderControllerTeste : MonoBehaviour
             agent.acceleration = 7.5f;
             restartCoroutine = false;
             StartCoroutine(EnemyPatrol());
-            //if ((agent.velocity.x > 0 && agent.speed < 8) || (agent.velocity.z > 0 && agent.speed < 8))
-            //{
-            //    animatorEnemy.SetInteger("transition", 1);
-
-            //}
-            //else
-            //{
-            //    animatorEnemy.SetInteger("transition", 0);
-
-            //}
         }
 
-        if(PlayerController.instance.Life <= 0 && !jumpscareAlready)
+        if (PlayerController.instance.Life <= 0 && !jumpscareAlready)
         {
             jumpscareAlready = true;
             StartCoroutine(Jumpscare());
@@ -100,6 +89,7 @@ public class SlenderControllerTeste : MonoBehaviour
     {
         if (rotationOnEnemy)
         {
+            Debug.Log("ROTATCAO");
             agent.speed = slenderSpeedFollowPlayer;
             agent.acceleration = slenderAccelerationFollowPlayer;
             Quaternion newRotation = Quaternion.LookRotation(agent.velocity.normalized, transform.up);
@@ -108,17 +98,17 @@ public class SlenderControllerTeste : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(angles), Time.deltaTime * rotationSpeed);
             agent.velocity = animatorEnemy.deltaPosition / Time.deltaTime;
         }
-        
+
     }
     IEnumerator Jumpscare()
     {
         _animatorJumpscareImage.SetTrigger("jumpscare");
         _audioSource.PlayOneShot(jumpscareAudioClip);
-        yield return new WaitForSeconds(3f);
+        PlayerController.instance.CanMove = false;
+        CameraFirstPerson.instance.CanMove = false;
+        yield return new WaitForSeconds(2.5f);
         Time.timeScale = 0f;
         CanvasManager.instance.wastedText.gameObject.SetActive(true);
-        CameraFirstPerson.instance.CanMove = false;
-        PlayerController.instance.CanMove = false;
         yield return new WaitForSecondsRealtime(3f);
         Time.timeScale = 1f;
         CameraFirstPerson.instance.CanMove = true;
@@ -162,9 +152,13 @@ public class SlenderControllerTeste : MonoBehaviour
                         agent.SetDestination(playerTransform.transform.position);
                         rotationOnEnemy = true;
                         Debug.Log("SEGUINDO O PLAYER");
-                        if(playerDistance <= 2f && !punchedPlayer)
+                        if (playerDistance <= 2.5f && !punchedPlayer)
                         {
-                            StartCoroutine(PunchTime());
+                            punchedPlayer = true;
+                            PlayerController.instance.Life--;
+                            StartCoroutine(UIManager.instance.EnableBlooScreen());
+                            yield return new WaitForSeconds(1f);
+                            punchedPlayer = false;
                         }
                         yield return new WaitForSeconds(4f);
                         Debug.Log("DEU 4 SEGUNDOS");

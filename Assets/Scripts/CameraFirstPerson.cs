@@ -10,7 +10,7 @@ public class CameraFirstPerson : IPersistentSingleton<CameraFirstPerson>
     public static CameraFirstPerson instance;
 
     [SerializeField] [Range(0.01f, 6)] private float _sensibility;
-    [SerializeField] private float mouseX = 0.0f, mouseY = 0.0f;
+    [SerializeField] private float mouseX, mouseY;
 
     [SerializeField] private Transform headPlayer;
     [SerializeField] private Transform player;
@@ -22,25 +22,10 @@ public class CameraFirstPerson : IPersistentSingleton<CameraFirstPerson>
     [SerializeField] private bool canMove;
 
     public bool CanMove { get => canMove; set => canMove = value; }
-
-    //private void Awake()
-    //{
-    //    if (instance != null && instance != this)
-    //    {
-    //        Destroy(this);
-    //    }
-    //    else
-    //    {
-    //        instance = this;
-    //        DontDestroyOnLoad(gameObject);
-    //    }
-
-    //}
-
-
     private void Start()
     {
         cameraMain = GetComponent<Camera>();
+        Cursor.lockState = CursorLockMode.Locked;
         player = FindObjectOfType<PlayerController>().transform;
         headPlayer = player.transform.GetChild(0).GetComponentInChildren<Transform>();
         CanMove = true;
@@ -62,7 +47,7 @@ public class CameraFirstPerson : IPersistentSingleton<CameraFirstPerson>
             rotationX += mouseX;
             rotationY += mouseY;
 
-            rotationY = Mathf.Clamp(rotationY, -90f, 90f);
+            rotationY = Mathf.Clamp(rotationY, -90, 90);
 
             transform.rotation = Quaternion.Euler(-rotationY, rotationX, 0);
             player.rotation = Quaternion.Euler(0, rotationX, 0);
@@ -72,9 +57,7 @@ public class CameraFirstPerson : IPersistentSingleton<CameraFirstPerson>
 
     private void LateUpdate()
     {
-
         transform.position = headPlayer.position;
-
     }
 
 }

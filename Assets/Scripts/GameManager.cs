@@ -19,21 +19,45 @@ public class GameManager : IPersistentSingleton<GameManager>
 
     private bool loadDoneMazeScene = false;
 
+    public bool haveReadedLetter = false;
+
     // Start is called before the first frame update
     [SerializeField] private RPGTalk rpgTalk;
     public int numberDialogue = 0;
 
     void Start()
     {
+        haveReadedLetter = false;
         rpgTalk = FindObjectOfType<RPGTalk>();
-
-        Invoke("FirstDialogueText", 4.5f);
+        Invoke("FirstDialogueText", 4f);
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (CanvasManager.instance.menuImage.gameObject.activeSelf)
+            {
+                Time.timeScale = 1f;
+                AudioListener.pause = false;
+                CanvasManager.instance.menuImage.gameObject.SetActive(false);
+                PlayerController.instance.CanMove = true;
+                CameraFirstPerson.instance.CanMove = true;
+            }
+            else
+            {
+
+                Time.timeScale = 0f;
+                AudioListener.pause = true;
+                PlayerController.instance.CanMove = false;
+                CameraFirstPerson.instance.CanMove = false;
+                CanvasManager.instance.menuImage.gameObject.SetActive(true);
+            }
+        }
+
         if (numberDialogue == 1)
         {
             numberDialogue++;
@@ -69,22 +93,22 @@ public class GameManager : IPersistentSingleton<GameManager>
         _audioSource.PlayOneShot(doorLockedAudioClip);
     }
 
-    public void SetNewComputerScreen()
-    {
-        for (int i = 0; i < computerScreens.Length; i++)
-        {
-            computerScreens[i].material = newMaterialScreen;
+    //public void SetNewComputerScreen()
+    //{
+    //    for (int i = 0; i < computerScreens.Length; i++)
+    //    {
+    //        computerScreens[i].material = newMaterialScreen;
      
-        }
-    }
+    //    }
+    //}
 
-    public void SetAudioClipComputer()
-    {
-        for(int i = 0; i < computerAudioSources.Length; i++)
-        {
-            computerAudioSources[i].clip = tvNoSinalAudioClip;
-            computerAudioSources[i].Play();
-        }
-    }
+    //public void SetAudioClipComputer()
+    //{
+    //    for(int i = 0; i < computerAudioSources.Length; i++)
+    //    {
+    //        computerAudioSources[i].clip = tvNoSinalAudioClip;
+    //        computerAudioSources[i].Play();
+    //    }
+    //}
 
 }

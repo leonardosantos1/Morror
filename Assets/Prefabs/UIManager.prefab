@@ -44,21 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e10b4d2eb44c474ea92372f4e2042b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textInteract: {fileID: 0}
-  textCollectible: {fileID: 0}
-  textFeedbackMap: {fileID: 0}
-  textFeedbackGetKey: {fileID: 0}
-  textAmoutKey: {fileID: 0}
-  keyIcon: {fileID: 0}
-  haveReadedLetter: 1
+  haveReadedLetter: 0
   keyAmount: 0
   mapIsOpen: 0
-  mapImage: {fileID: 0}
   audioSource: {fileID: 1465424152129384311}
   paperSound: {fileID: 8300000, guid: ef6d6c571e4b9d8499cac9abf1b67d58, type: 3}
   pickUpKeyAudioClip: {fileID: 8300000, guid: 22ee1ce05c52f5547a44908a0ae7a39b, type: 3}
   _animatorTextFeedbackMap: {fileID: 0}
-  cameraFirstPerson: {fileID: 0}
 --- !u!82 &1465424152129384311
 AudioSource:
   m_ObjectHideFlags: 0

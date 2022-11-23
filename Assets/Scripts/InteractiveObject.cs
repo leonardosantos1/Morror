@@ -20,24 +20,31 @@ public class InteractiveObject : MonoBehaviour
 
     public void ShowLetter()
     {
+        Cursor.lockState = CursorLockMode.None;
+
         if (obj.name.Equals("Letter"))
         {
             CanvasManager.instance.letterImage.gameObject.SetActive(true);
 
         }
         else{
+            GameManager.instance.haveReadedLetter = true;
+            Debug.Log(GameManager.instance.haveReadedLetter);
             CanvasManager.instance.letterScene2.gameObject.SetActive(true);
         }
-        //isInLetter = true;
 
         audioSource.clip = paperSound;
         audioSource.Play();
         PlayerController.instance.CanMove = false;
         CameraFirstPerson.instance.CanMove = false;
+
     }
 
     public void CloseLetter()
     {
+
+        Cursor.lockState = CursorLockMode.Locked;
+
         if (obj.name.Equals("Letter"))
         {
             CanvasManager.instance.letterImage.gameObject.SetActive(false);
@@ -50,6 +57,7 @@ public class InteractiveObject : MonoBehaviour
         //isInLetter = false;
         PlayerController.instance.CanMove = true;
         CameraFirstPerson.instance.CanMove = true;
+
     }
 
 

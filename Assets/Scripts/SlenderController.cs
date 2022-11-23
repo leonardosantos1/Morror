@@ -66,7 +66,6 @@ public class SlenderController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         playerDistance = Vector3.Distance(playerTransform.position, transform.position);
 
         StartCoroutine(EnemyFOV());
@@ -104,11 +103,11 @@ public class SlenderController : MonoBehaviour
     {
         _animatorJumpscareImage.SetTrigger("jumpscare");
         _audioSource.PlayOneShot(jumpscareAudioClip);
-        yield return new WaitForSeconds(3f);
+        PlayerController.instance.CanMove = false;
+        CameraFirstPerson.instance.CanMove = false;
+        yield return new WaitForSeconds(2.5f);
         Time.timeScale = 0f;
         CanvasManager.instance.wastedText.gameObject.SetActive(true);
-        CameraFirstPerson.instance.CanMove = false;
-        PlayerController.instance.CanMove = false;
         yield return new WaitForSecondsRealtime(3f);
         Time.timeScale = 1f;
         CameraFirstPerson.instance.CanMove = true;
@@ -152,7 +151,7 @@ public class SlenderController : MonoBehaviour
                         agent.SetDestination(playerTransform.transform.position);
                         rotationOnEnemy = true;
                         Debug.Log("SEGUINDO O PLAYER");
-                        if (playerDistance <= 2f && !punchedPlayer)
+                        if (playerDistance <= 2.5f && !punchedPlayer)
                         {
                             StartCoroutine(PunchTime());
                         }

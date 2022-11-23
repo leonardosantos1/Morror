@@ -62,7 +62,4 @@ public class LightDoorController : MonoBehaviour
         }
     }
 
-
-
-
 }

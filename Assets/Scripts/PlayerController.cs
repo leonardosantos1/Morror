@@ -30,20 +30,6 @@ public class PlayerController : IPersistentSingleton<PlayerController>
     public bool CanMove { get => canMove; set => canMove = value; }
     public int Life { get => life; set => life = value; }
 
-    //private void Awake()
-    //{
-    //    if (instance != null && instance != this)
-    //    {
-    //        Destroy(this);
-    //    } else
-    //    {
-    //        instance = this;
-    //        DontDestroyOnLoad(gameObject);
-    //    }
-
-
-    //}
-
     // Start is called before the first frame update
     void Start()
     {
@@ -120,10 +106,6 @@ public class PlayerController : IPersistentSingleton<PlayerController>
         {
            _rb.velocity = Vector3.zero;
         }
-
-        //transform.position += velocity * Time.deltaTime;
-
-
     }
 
     void RespawnPlayerMazeScene()

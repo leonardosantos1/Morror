@@ -9,8 +9,6 @@ public class UIManager : IPersistentSingleton<UIManager>
 
     public static UIManager instance;
   
-    [SerializeField] private bool haveReadedLetter = false;
-
     [SerializeField] private int keyAmount = 0;
 
     public bool mapIsOpen = false;
@@ -19,30 +17,15 @@ public class UIManager : IPersistentSingleton<UIManager>
     [SerializeField] private AudioClip pickUpKeyAudioClip;
     [SerializeField] private Animator _animatorTextFeedbackMap;
 
-   
 
     //public CameraFirstPerson cameraFirstPerson;
 
     public Animator animatorTextFeedbackMap { get => _animatorTextFeedbackMap; set => _animatorTextFeedbackMap = value; }
     public int KeyAmount { get => keyAmount; set => keyAmount = value; }
-    public bool HaveReadedLetter { get => haveReadedLetter; set => haveReadedLetter = value; }
 
-    //private void Awake()
-    //{
-    //    if (instance != null && instance != this)
-    //    {
-    //        Destroy(this);
-    //    }
-    //    else
-    //    {
-    //        instance = this;
-    //        DontDestroyOnLoad(gameObject);
-    //    }
-
-       
-    //}
     void Start()
     {
+    
     }
 
     // Update is called once per frame
@@ -50,7 +33,6 @@ public class UIManager : IPersistentSingleton<UIManager>
     { 
         if (SceneManager.GetActiveScene().name.Equals("MazeScene")){
             FeedbackGetKey();
-
         }
     }
 
@@ -93,7 +75,6 @@ public class UIManager : IPersistentSingleton<UIManager>
         CanvasManager.instance.textAmountGetKey.gameObject.SetActive(true);
         CanvasManager.instance.textAmountKey.gameObject.SetActive(true);
         CanvasManager.instance.keyIcon.gameObject.SetActive(true);
-
     }
 
     public void FeedbackGetKey()
@@ -107,10 +88,7 @@ public class UIManager : IPersistentSingleton<UIManager>
 
     }
 
-    public void HaveReadLetterMazeScene()
-    {
-        haveReadedLetter = true;
-    }
+ 
 
    public IEnumerator EnableBlooScreen()
     {
@@ -122,10 +100,8 @@ public class UIManager : IPersistentSingleton<UIManager>
     }
 
 
-    public void DeathScreen()
+    public void Menu()
     {
-        CanvasManager.instance.wastedText.gameObject.SetActive(true);
-        CanvasManager.instance.restartGame.gameObject.SetActive(true);
         CanvasManager.instance.closeGame.gameObject.SetActive(true);
     }
    
@@ -134,5 +110,9 @@ public class UIManager : IPersistentSingleton<UIManager>
         Application.Quit();
     }
 
+    public void StartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
 
 }

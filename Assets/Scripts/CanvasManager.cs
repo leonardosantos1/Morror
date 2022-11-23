@@ -31,19 +31,8 @@ public class CanvasManager : IPersistentSingleton<CanvasManager>
     public Button restartGame;
     public Button closeGame;
 
-    //private void Awake()
-    //{
-    //    if (instance != null && instance != this)
-    //    {
-    //        Destroy(this);
-    //    }
-    //    else
-    //    {
-    //        instance = this;
-    //        DontDestroyOnLoad(gameObject);
-    //    }
+    public Image menuImage;
 
-    //}
 
     void Start()
     {

@@ -67,13 +67,19 @@ public class PlayerInteraction : MonoBehaviour
                             GameManager.instance.DialogueNeedToFindKey();
                         }
 
-                    }else if(interactiveObj.obj.name.Equals("Door") && UIManager.instance.HaveReadedLetter){
-                        interactiveObj.SetDoorActivity();
+                    }else if(interactiveObj.obj.name.Equals("Door")){
+                        if (GameManager.instance.haveReadedLetter)
+                        {
+                            interactiveObj.SetDoorActivity();
+
+                        }
+                        else
+                        {
+                            GameManager.instance.DialogueNeedReadLetter();
+
+                        }
                     }
-                    else if (interactiveObj.obj.name.Equals("Door") && !UIManager.instance.HaveReadedLetter)
-                    {
-                        GameManager.instance.DialogueNeedReadLetter();
-                    }
+                   
                 }
                  
             }else

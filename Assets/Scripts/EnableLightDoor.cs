@@ -52,8 +52,8 @@ public class EnableLightDoor : MonoBehaviour
 
             if (GameManager.instance.numberDialogue == 0)
             {
-                GameManager.instance.SetNewComputerScreen();
-                GameManager.instance.SetAudioClipComputer();
+                //GameManager.instance.SetNewComputerScreen();
+                //GameManager.instance.SetAudioClipComputer();
                 GameManager.instance.numberDialogue++;
             }
             
