@@ -51,7 +51,7 @@ public class PlayerInteraction : MonoBehaviour
                
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    hit.collider.GetComponent<InteractiveObject>();
+                    //hit.collider.GetComponent<InteractiveObject>();
                     interactiveObj = hit.collider.GetComponent<InteractiveObject>();
                     if (interactiveObj.obj.name.Equals("Letter") || interactiveObj.obj.name.Equals("Letter2"))
                     {
@@ -76,7 +76,6 @@ public class PlayerInteraction : MonoBehaviour
                         else
                         {
                             GameManager.instance.DialogueNeedReadLetter();
-
                         }
                     }
                    
@@ -86,12 +85,13 @@ public class PlayerInteraction : MonoBehaviour
             {
                 UIManager.instance.SetActiveTextInteract(false);
             }
+            //interação com objetos coletaveis
             if (obj.Equals("Collectible Object"))
             {
                 UIManager.instance.SetActiveTextCollectible(true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    hit.collider.GetComponent<CollectibleObject>();
+                    //hit.collider.GetComponent<CollectibleObject>();
                     collectibleObj = hit.collider.GetComponent<CollectibleObject>();
                     if (collectibleObj.obj.name.Equals("Map"))
                     {

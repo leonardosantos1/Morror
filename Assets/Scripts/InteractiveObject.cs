@@ -18,10 +18,13 @@ public class InteractiveObject : MonoBehaviour
 
     public CameraFirstPerson cameraFirstPerson;
 
+
+    //metodo para mostrar a carta quando for interagida
     public void ShowLetter()
     {
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.None;// desbloqueia o cursor do mouse para que o usuario consiga fechar a carta depois
 
+        //verifica qual carta é, se seria a da primeira fase ou da segunda
         if (obj.name.Equals("Letter"))
         {
             CanvasManager.instance.letterImage.gameObject.SetActive(true);
@@ -39,6 +42,7 @@ public class InteractiveObject : MonoBehaviour
         CameraFirstPerson.instance.CanMove = false;
 
     }
+    //metodo para fechar a carta quando for apertado o botao de close
 
     public void CloseLetter()
     {
@@ -61,6 +65,7 @@ public class InteractiveObject : MonoBehaviour
     }
 
 
+    //metodo para setar qual será a ação da porta, se ela vai fechar ou abrir
     public void SetDoorActivity()
     {
         if (isOpen.Equals(true))

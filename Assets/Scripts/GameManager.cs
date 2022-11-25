@@ -36,7 +36,7 @@ public class GameManager : IPersistentSingleton<GameManager>
     // Update is called once per frame
     void Update()
     {
-
+        //seta a logica do menu de pause durante o jogo
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (CanvasManager.instance.menuImage.gameObject.activeSelf)

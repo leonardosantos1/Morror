@@ -64,7 +64,7 @@ public class PlayerController : IPersistentSingleton<PlayerController>
         }
         else
         {
-            maxSpeed = 8;
+            maxSpeed = 4;
         }
     }
     private void FixedUpdate()
@@ -82,19 +82,11 @@ public class PlayerController : IPersistentSingleton<PlayerController>
 
     public void OnMove()
     {
-        //_rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * _speed;
-
-        //float moveH = Input.GetAxis("Horizontal");
-        //float moveV = Input.GetAxis("Vertical");
-
+       
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
         direction = (transform.forward * verticalInput + transform.right * horizontalInput);
-        // _rb.velocity = (direction * _speed);
-        //direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
-
-
         velocity = Vector3.SmoothDamp(velocity, direction * maxSpeed, ref currentVelocity, maxSpeed / acceleration);
 
         if (canMove)

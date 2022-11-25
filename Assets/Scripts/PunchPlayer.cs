@@ -29,6 +29,4 @@ public class PunchPlayer : MonoBehaviour
             StartCoroutine(UIManager.instance.EnableBlooScreen());
         }
     }
-
-
 }

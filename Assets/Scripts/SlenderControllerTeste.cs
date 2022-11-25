@@ -89,7 +89,6 @@ public class SlenderControllerTeste : MonoBehaviour
     {
         if (rotationOnEnemy)
         {
-            Debug.Log("ROTATCAO");
             agent.speed = slenderSpeedFollowPlayer;
             agent.acceleration = slenderAccelerationFollowPlayer;
             Quaternion newRotation = Quaternion.LookRotation(agent.velocity.normalized, transform.up);
@@ -150,7 +149,9 @@ public class SlenderControllerTeste : MonoBehaviour
                         seePlayer = true;
                         Debug.DrawRay(transform.position, hit.point, Color.red);
                         agent.SetDestination(playerTransform.transform.position);
-                        rotationOnEnemy = true;
+                        agent.speed = 11;
+                        agent.acceleration = 14f;
+                        //rotationOnEnemy = true;
                         Debug.Log("SEGUINDO O PLAYER");
                         if (playerDistance <= 2.5f && !punchedPlayer)
                         {
@@ -170,7 +171,7 @@ public class SlenderControllerTeste : MonoBehaviour
                         }
                         else
                         {
-                            rotationOnEnemy = false;
+                            //rotationOnEnemy = false;
                             seePlayer = false;
                             Debug.Log("É FALSO ESSA MERDA");
                         }

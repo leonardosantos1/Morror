@@ -27,6 +27,7 @@ public class EnableLightDoor : MonoBehaviour
     void Update()
     {
      
+        //verificar e seta qual porta branca vai ser ativa quando o usuario levar os dois jumpscare
         if(avaibleDoor.Equals("empty"))
         {
             if (monster1.AlreadyHappenedFirstJumpScare)
@@ -38,7 +39,7 @@ public class EnableLightDoor : MonoBehaviour
                 avaibleDoor = "monster2";
             }  
         }
-
+        //ativa a porta branca certa
         if( monster1.AlreadyHappenedFirstJumpScare && monster2.AlreadyHapennedJumpScare)
         {
             if (avaibleDoor.Equals("monster1"))

@@ -7,6 +7,8 @@ public class CanvasManager : IPersistentSingleton<CanvasManager>
 {
     // Start is called before the first frame update
 
+    //CLASSE DESTINADA SOMENTE PARA GET COMPONENT
+
     public static CanvasManager instance;
 
     public Text textInteract;
