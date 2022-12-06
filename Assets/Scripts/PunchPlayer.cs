@@ -26,7 +26,7 @@ public class PunchPlayer : MonoBehaviour
         if (other.tag.Equals("Player")){
             Debug.Log("Acertou o SOCO NO PLAYer");
             PlayerController.instance.Life--;
-            StartCoroutine(UIManager.instance.EnableBlooScreen());
+            StartCoroutine(UIManager.instance.EnableBloodScreen());
         }
     }
 }

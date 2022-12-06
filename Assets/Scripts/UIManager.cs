@@ -90,7 +90,7 @@ public class UIManager : IPersistentSingleton<UIManager>
 
  
 
-   public IEnumerator EnableBlooScreen()
+   public IEnumerator EnableBloodScreen()
     {
         CanvasManager.instance.blooScreenImage.gameObject.SetActive(true);
         CanvasManager.instance.animatorBlood.SetInteger("transition", 1);
@@ -112,7 +112,7 @@ public class UIManager : IPersistentSingleton<UIManager>
 
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
 }

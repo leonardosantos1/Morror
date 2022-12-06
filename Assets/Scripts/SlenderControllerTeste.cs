@@ -157,7 +157,7 @@ public class SlenderControllerTeste : MonoBehaviour
                         {
                             punchedPlayer = true;
                             PlayerController.instance.Life--;
-                            StartCoroutine(UIManager.instance.EnableBlooScreen());
+                            StartCoroutine(UIManager.instance.EnableBloodScreen());
                             yield return new WaitForSeconds(1f);
                             punchedPlayer = false;
                         }
